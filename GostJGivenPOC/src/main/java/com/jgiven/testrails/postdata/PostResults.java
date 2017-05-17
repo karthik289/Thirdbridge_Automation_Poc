@@ -20,7 +20,7 @@ public class PostResults {
 		TestResults models = gson.fromJson(br, TestResults.class);
 		TestRailResults railresults = new TestRailResults();
 		List<TestRailResult> trailresults = new LinkedList<TestRailResult>();
-		
+		int i=0;		
 		for(Scenario scenario:models.getScenarios()){
 			TestRailResult railresult = new TestRailResult();
 			//railresult.setElapsed(String.valueOf(scenario.getDurationInNanos()));
@@ -30,7 +30,6 @@ public class PostResults {
 			else
 				railresult.setStatusId(5);
 		List<CustomStepResult> listtrstepresults = new LinkedList<CustomStepResult>();
-		int i=0;
 		railresult.setTestid(testsarray.get(i).getAsJsonObject().get("id").getAsInt());		
 		for(ScenarioCase cases:scenario.getScenarioCases()){
 			CustomStepResult trstepresults= new CustomStepResult();			
@@ -54,7 +53,7 @@ public class PostResults {
 		return response;
 	}
 	
-	public static void main(String[] args) throws Exception{
+	public static void postReultsToTestRails() throws Exception{		
 		String response = addRun(2);
 		JsonObject responsedata = new JsonParser().parse(response).getAsJsonObject();
 		System.out.println(responsedata);

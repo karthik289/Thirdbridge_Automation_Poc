@@ -22,6 +22,7 @@ import com.jgiven.gost.helpers.Configuration;
 import com.jgiven.gost.tests.steps.GivenLogiAndRegister;
 import com.jgiven.gost.tests.steps.ThenLoginRegister;
 import com.jgiven.gost.tests.steps.WhenLoginAndRegister;
+import com.jgiven.testrails.postdata.PostResults;
 import com.tngtech.jgiven.testng.ScenarioTest;
 
 public class LoginRegisterTest extends ScenarioTest<GivenLogiAndRegister, WhenLoginAndRegister, ThenLoginRegister> {
@@ -103,7 +104,11 @@ public class LoginRegisterTest extends ScenarioTest<GivenLogiAndRegister, WhenLo
 
 	@AfterTest
 	public void tearDown() {
-
+		try{
 		driver.quit();
+		new PostResults().postReultsToTestRails();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
