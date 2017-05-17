@@ -106,7 +106,6 @@ public class LoginRegisterTest extends ScenarioTest<GivenLogiAndRegister, WhenLo
 	public void tearDown() {
 		try{
 		driver.quit();
-		new PostResults().postReultsToTestRails();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
