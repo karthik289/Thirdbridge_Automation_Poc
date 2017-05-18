@@ -89,23 +89,26 @@ public class LoginRegisterTest extends ScenarioTest<GivenLogiAndRegister, WhenLo
 	@Test
 	public void SuccessfulLoginwithValidCredentials() {
 
-		given().User_is_on_Home_Page();
-		when().User_Navigate_to_LogIn_Page(driver);
+		//given().User_is_on_Home_Page();
+		//when().User_Navigate_to_LogIn_Page(driver);
 		when().User_enters_UserName_and_Password(driver);
 		then().Message_displayed_Login_Successfully(driver);
 
 	}
-	@Test
+	/*@Test
 	public void SuccessfulLogOutAfterLogin() {
 
 		when().User_LogOut_from_the_Application(driver);
-		then().User_Navigate_to_LogIn_Page(driver);
-	}
+		then().Message_displayed_LogOut_Successfully(driver);
+	}*/
 
 	@AfterTest
 	public void tearDown() {
 		try{
+		
+		new PostResults().postReultsToTestRails();
 		driver.quit();
+		
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
