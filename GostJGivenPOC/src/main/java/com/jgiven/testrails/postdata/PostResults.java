@@ -53,7 +53,7 @@ public class PostResults {
 		return response;
 	}
 	
-	public static void main(String args[]) throws Exception{		
+	public static void postReultsToTestRails() throws Exception{		
 		String response = addRun(2);
 		JsonObject responsedata = new JsonParser().parse(response).getAsJsonObject();
 		System.out.println(responsedata);
