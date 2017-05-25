@@ -13,6 +13,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 public class PostResults {
+	
+	public static final String testRailUrl= "https://mytestrunner.testrail.net/index.php?/api/v2/";
 
 	public static String ConvertResults(String resultsfilepath,JsonArray testsarray) throws Exception{
 		Gson gson = new Gson();
@@ -52,8 +54,8 @@ public class PostResults {
 		String response = gson.toJson(railresults);
 		return response;
 	}
-	
-	public static void main(String args[]) throws Exception{		
+public static void main(String[] args){	
+	try{
 		String response = addRun(2);
 		JsonObject responsedata = new JsonParser().parse(response).getAsJsonObject();
 		System.out.println(responsedata);
@@ -62,6 +64,9 @@ public class PostResults {
 		JsonArray responseArrayData = new JsonParser().parse(runresponse).getAsJsonArray();
 		String results = addResults(1,id,responseArrayData);
 		System.out.println(results);
+	}catch (Exception e) {
+		e.printStackTrace();
+	}
 	}
 	
 	public static String addRun(int projectId)throws Exception{
@@ -70,7 +75,7 @@ public class PostResults {
 		JsonMap.put("name", new Date());
 		JsonMap.put("assignedto_id", 1);
 		JsonMap.put("include_all", true);
-		String url="https://mytestrunner.testrail.net/index.php?/api/v2/add_run/"+projectId;
+		String url=testRailUrl+"add_run/"+projectId;
 		Gson gsonObj = new Gson();
 		String jsonStr = gsonObj.toJson(JsonMap);
 		String response =HttpClientUtility.ExecutePost(url, jsonStr);
@@ -80,18 +85,18 @@ public class PostResults {
 	public static String addResults(int projectId,int runid,JsonArray test_ids)throws Exception{
 		String results= ConvertResults("./target/jgiven-reports/json/com.jgiven.gost.tests.LoginRegisterTest.json",test_ids);
 		System.out.println(results);
-		String url ="https://mytestrunner.testrail.net/index.php?/api/v2/add_results/"+runid;
+		String url =testRailUrl+"add_results/"+runid;
 		String response =HttpClientUtility.ExecutePost(url, results);
 		return response;
 	}
 	//index.php?/api/v2/get_run/:
 	public static String getRun(int runid)throws Exception{
-		String url="https://mytestrunner.testrail.net/index.php?/api/v2/get_run/"+runid;
+		String url=testRailUrl+"get_run/"+runid;
 		String responsedata =HttpClientUtility.executeGet(url);
 		return responsedata;
 	}
 	public static String getTestForRun(int runid)throws Exception{
-		String url="https://mytestrunner.testrail.net/index.php?/api/v2/get_tests/"+runid;
+		String url=testRailUrl+"get_tests/"+runid;
 		String responsedata =HttpClientUtility.executeGet(url);
 		return responsedata;
 	}

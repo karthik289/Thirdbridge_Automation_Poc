@@ -95,18 +95,17 @@ public class LoginRegisterTest extends ScenarioTest<GivenLogiAndRegister, WhenLo
 		then().Message_displayed_Login_Successfully(driver);
 
 	}
-	/*@Test
+	@Test
 	public void SuccessfulLogOutAfterLogin() {
 
 		when().User_LogOut_from_the_Application(driver);
 		then().Message_displayed_LogOut_Successfully(driver);
-	}*/
+	}
 
 	@AfterTest
 	public void tearDown() {
 		try{
 		
-		new PostResults().postReultsToTestRails();
 		driver.quit();
 		
 		}catch (Exception e) {
